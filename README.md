@@ -6,4 +6,4 @@ Qiitaの記事[オブジェクト指向について説明してみる](https://q
 
 ## 対応セクション
 
-このコミットは[インスタンス](https://qiita.com/kira4845/items/63d690ff5aeba838b363#インスタンス)に対応
+このコミットは[メソッド](https://qiita.com/kira4845/items/63d690ff5aeba838b363#%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89)に対応
