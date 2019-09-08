@@ -24,6 +24,29 @@ class Cat:
         self.eye_color = eye_color
         self.fur_type = fur_type
 
+    def __str__(self):
+        delimiter = '\t'
+        linefeed = '\n'
+        ret_str = "名前" + delimiter
+        ret_str += self.name + linefeed
+        ret_str += "性別" + delimiter
+        ret_str += self.sex + linefeed
+        ret_str += "誕生日" + delimiter
+        ret_str += self.birth_day.strftime("%Y/%m/%d") + linefeed
+        ret_str += "年齢" + delimiter
+        ret_str += str(self.age) + linefeed
+        ret_str += "種類" + delimiter
+        ret_str += self.type_name + linefeed
+        ret_str += "毛色" + delimiter
+        ret_str += self.fur_color + linefeed
+        ret_str += "目の色" + delimiter
+        ret_str += self.eye_color + linefeed
+        ret_str += "毛種" + delimiter
+        ret_str += self.fur_type + linefeed
+        ret_str += "好物" + delimiter
+        ret_str += self.favorite_food
+        return ret_str
+
     def calculation_age(self):
         """
         誕生日から年齢を算出する
