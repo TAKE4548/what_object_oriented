@@ -3,8 +3,9 @@ import tkinter
 from tkinter import ttk
 from datetime import date
 
-from cat import Cat
-from cat import CatInquirer
+from animal import Cat
+from animal import Elephant
+from animal import AnimalInquirer
 
 
 class OperationWindow(tkinter.Frame):
@@ -78,24 +79,28 @@ class OperationWindow(tkinter.Frame):
 
 def main():
     # サンプルとするネコのインスタンス生成
-    cats = CatInquirer()
-    cats.increase(
+    animals = AnimalInquirer()
+    animals.increase_cat(
         "ジジ", date(2017, 5, 10), "オス", "",
         "ニシンパイ", "黒", "白", "短毛種"
     )
-    cats.increase(
+    animals.increase_cat(
         "タマ", date(2015, 11, 23), "オス", "",
         "サンマ", "白", "白", "短毛種"
     )
-    cats.increase(
+    animals.increase_cat(
         "ニャース", date(2017, 1, 31), "オス", "ポケモン",
         "がんもどき", "アイボリー", "白", "短毛種"
+    )
+    animals.increase_elephant(
+        "ダンボ", date(2009, 3, 22), "オス", "ディズニー",
+        "", "なし", "翼のように大きい", "短め"
     )
 
     # GUIの準備・設定
     root = tkinter.Tk()
     root.title("Cat's Infomations")
-    app = OperationWindow(root, cats.get_names(), cats.to_dict)
+    app = OperationWindow(root, animals.get_names(), animals.to_dict)
     # 操作画面の表示
     app.mainloop()
 
