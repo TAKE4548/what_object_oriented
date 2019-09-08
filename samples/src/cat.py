@@ -1,11 +1,19 @@
-# -*- coding: utf-8 -*-
-
-
+# coding: utf-8
 from datetime import date
 
 class Cat:
     """
     ネコのクラス
+
+    params
+        name: (str)名前
+        birth_day: (datetime.date)誕生日
+        sex: (str)性別
+        type_name: (str)種類
+        favorite_food: (str)好物
+        fur_color: (str)毛色
+        eye_color: (str)目の色
+        fur_type: (str)毛種
     """
     def __init__(
         self,
@@ -14,9 +22,9 @@ class Cat:
     ):
         # ネコのプロパティ
         self.name = name
-        self.birth_day = birth_day # 誕生日のプロパティを追加
+        self.birth_day = birth_day
         self.age = None
-        self.calculation_age()     # 誕生日から自動算出
+        self.calculation_age()
         self.sex = sex
         self.type_name = type_name
         self.favorite_food = favorite_food
@@ -63,3 +71,103 @@ class Cat:
                 age += 1
         # プロパティに反映
         self.age = age
+
+    def to_dict(self):
+        """
+        各プロパティを辞書化する
+
+        param
+            None
+        return
+            (dict)作成した辞書(key:属性名, val:属性値)
+        """
+        ret_dict = {
+            "名前": self.name,
+            "性別": self.sex,
+            "誕生日": self.birth_day,
+            "年齢": self.age,
+            "種類": self.type_name,
+            "毛色": self.fur_color,
+            "目の色": self.eye_color,
+            "毛種": self.fur_type,
+            "好物": self.favorite_food
+        }
+        return ret_dict
+
+
+class CatInquirer:
+    """
+    ネコの情報を紹介する
+
+    param
+        cats: (list)Catオブジェクトのリスト
+    """
+    def __init__(self, cats=[]):
+        # 名前をキーにした辞書に変換
+        self.cats = {x.name: x for x in cats}
+
+    def increase(
+        self,
+        name, birth_day, sex, type_name, favorite_food,
+        fur_color, eye_color, fur_type, force=False
+    ):
+        """
+        Catオブジェクトを直接生成して追加する
+
+        param
+            force: (bool)同名のネコがいる場合、強制的に情報の上書きをするか
+        return
+            (Cat)追加したCatインスタンス
+        """
+        # 既存の確認
+        if name in self.cats.keys():
+            if not force:
+                print(
+                    "既に同名のネコがいます。\n" +
+                    "情報を上書きする場合は\"force\"オプションを" +
+                    "Trueにして再試行して下さい。"
+                )
+                return None
+        # 追加するCatインスタンスを作成
+        tmp_cat =  Cat(
+            name, birth_day, sex, type_name, favorite_food,
+            fur_color, eye_color, fur_type
+        )
+        # 追加
+        self.cats[tmp_cat.name] = tmp_cat
+        return tmp_cat
+
+    def find_cat(self, name):
+        """
+        指定した名前のCatインスタンスを取得して返す
+
+        param
+            name: (str)探索するネコの名前
+        return
+            (Cat)見つかったCatのインスタンス
+        """
+        if name not in self.cats.keys():
+            raise KeyError("そんなネコはいないよ")
+        return self.cats[name]
+
+    def get_names(self):
+        """
+        登録済みのネコたちの名前一覧を返す
+
+        param
+            None
+        return
+            (list)ネコの名前リスト
+        """
+        return list(self.cats.keys())
+
+    def to_dict(self, name):
+        """
+        指定した名前のCatインスタンスに対応する辞書を返す
+
+        param
+            name: (str)探索するネコの名前
+        return
+            (dict)見つかったCatのインスタンスの辞書(key:属性名, val:属性値)
+        """
+        return self.find_cat(name).to_dict()
